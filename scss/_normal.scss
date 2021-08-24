@@ -1,0 +1,44 @@
+// :root {
+
+// }
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+body {
+	box-shadow: inset 0px 0px 70vmin 50vmin var(--hover-color);
+	max-height: 100vh;
+	overflow: hidden;
+	background: #000000;
+}
+
+// *::selection {
+// 	// background: transparent;
+// 	// 	// text-shadow: 1px 1px 0 var(--accent-color), 2px 2px 0 var(--accent-color);
+// 	// 	// text-shadow: 0px 0px 7px #ffffff, 0px 0px 5px #ffffff, 0px 0px 10px #ffffff, 0px 0px 15px #ffffff,
+// 	// 	// 0px 0px 30px #ffffff, 0px 0px 50px #ffffff, 0px 0px 100px #ffffff;
+
+// 	// text-shadow: 0px -14px 8px rgba(0, 0, 0, 0.2), 0px -14px 7px rgba(0, 0, 0, 0.3), 0px -12px 6px rgba(0, 0, 0, 0.4),
+// 	// 	0px -10px 5px rgba(0, 0, 0, 0.5), 0px -8px 4px rgba(0, 0, 0, 0.6), 0px -6px 3px rgba(0, 0, 0, 0.7),
+// 	// 	0px -4px 2px rgba(0, 0, 0, 0.8), 0px -2px 1px rgba(0, 0, 0, 0.9), 0px -2px 1px rgba(0, 0, 0, 0.8),
+// 	// 	0px -18px 9px rgba(0, 0, 0, 0.1);
+// }
+
+@keyframes shadow-inset-center {
+	0% {
+		box-shadow: inset 0px 0px 70vmin 50vmin var(--hover-color);
+	}
+	20% {
+		box-shadow: inset 0px 0px 70vmin 50vmin var(--hover-color);
+	}
+	100% {
+		box-shadow: inset 0px 0px 70vmin -50vmin var(--hover-color);
+	}
+}
