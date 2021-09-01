@@ -1,7 +1,95 @@
-let b = document.querySelector('body');
+const b = document.querySelector('body');
+const mainInfo = document.querySelector('.info');
+const footerInfo = document.querySelector('footer.data');
+// console.log(footerInfo);
+
 window.addEventListener("load", function (event) {
-	b.style.animation = "shadow-inset-center 2s ease-out forwards";
+	// b.style.animation = "shadow-inset-center 2s ease-out forwards";
+	mainInfo.classList.add("active");
+	footerInfo.classList.add("active");
+
 });
+
+
+
+let dop = Math.round(getRandomArbitrary(0, 80)) - 50;//Допоміжна пеермінна
+let temp = {
+	C: dop,
+	F: Math.round(dop * 1.8 + 32)
+}
+
+let CF = temp.C
+console.log(temp.C, temp.F);
+const value = document.querySelector(".value");
+const tempCont = document.querySelector(".data__temperature");
+const degrees = document.querySelectorAll(".degrees-item");
+const degreesCont = document.querySelector(".degrees");
+
+value.innerHTML = CF;
+value.dataset.lenght = CF.toString().length;
+// tempCont.onload = changeTempValues();
+tempCont.onclick = function () {
+	degreesCont.classList.toggle('active');
+	CF = (CF == temp.C) ? CF = temp.F : CF = temp.C;
+	value.innerHTML = CF;
+	value.dataset.lenght = CF.toString().length;
+	for (let i = 0; i < degrees.length; i++) {
+		degrees[i].classList.toggle('active');
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+function getRandomArbitrary(min, max) {
+	return Math.random() * (max - min) + min;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Розміри монітора

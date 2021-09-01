@@ -3,18 +3,57 @@
 
 <head>
 	<meta charset="UTF-8">
-	<link rel="shortcut icon" href="img/LeafLogo.svg" type="image/svg">
+	<link rel="shortcut icon" href="img/Son-icon.svg" type="image/svg"><!-- Icon -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 	<title>Solar thunder</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;700;900&display=swap"
-		rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
 <body>
+	<div class="background">
+		<!-- фон
+		зірки
+		сонце з місяцем
+		хмари
+		земля -->
+	</div>
+	<header class="info">
+		<div class="info__city">
+			<svg class="info__city-marker" viewBox="0 0 21 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path
+					d="M9.04508 25.4868C1.5866 14.8221 0.188581 13.7182 0.248776 9.84016C0.33123 4.5281 4.90754 0.28856 10.4703 0.370837C16.0331 0.453113 20.4757 4.82605 20.3932 10.1381C20.333 14.0161 18.9014 15.0782 11.1153 25.5174C10.6044 26.2001 9.53452 26.1842 9.04508 25.4868ZM10.2588 13.9968C12.5766 14.031 14.4834 12.2646 14.5178 10.0512C14.5521 7.83784 12.701 6.01579 10.3832 5.98151C8.06539 5.94723 6.1586 7.7137 6.12424 9.92706C6.08989 12.1404 7.94098 13.9625 10.2588 13.9968Z" />
+			</svg>
+			<h1 class="info__city-name">Ivano-Frankivsk</h1>
+		</div>
+		<div class="info__date">
+			<span>Sunday</span>
+			<span>,</span>
+			<span>Aug</span>
+			<span>30</span>
+			<span>th</span>
+		</div>
+		<!-- <div class="info__first"></div> -->
+	</header>
+	<footer class="data">
+		<div class="data__temperature">
+			<h2 class="value" data-lenght="2">32</h2>
+			<div class="degrees">
+				<span class="degrees-item active">C</span>
+				<span class="degrees-item">F</span>
+			</div>
+		</div>
+		<div class="data__forecast">
+			<div class="icon"><img src="img/Son-icon.svg"></div>
+			<div class="weather">Sunny</div>
+			<div class="wind">Wind <span>5</span> km/h</div>
+		</div>
+	</footer>
+
+
 	<script src="js/main.js"></script>
 </body>
 

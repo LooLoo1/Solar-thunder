@@ -1,0 +1,396 @@
+:root {
+  --hover-color: #fff;
+}
+
+*,
+*:before,
+*:after {
+  font-family: "Roboto", sans-serif;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+html {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #000000;
+}
+
+body {
+  position: relative;
+  width: 414px;
+  height: 896px;
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: -webkit-gradient(linear, left top, left bottom, from(#2d84da), color-stop(31.04%, #56ccf2), color-stop(63.33%, #b2fefa), color-stop(82.6%, #6cdc38), to(#149202));
+  background: linear-gradient(180deg, #2d84da 0%, #56ccf2 31.04%, #b2fefa 63.33%, #6cdc38 82.6%, #149202 100%);
+}
+
+.info {
+  --animation-duration: 0.5s;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 45px;
+  margin-top: 150px;
+  -webkit-transform: translateY(-250%) scale(0.833);
+          transform: translateY(-250%) scale(0.833);
+  -webkit-transition: margin-top var(--animation-duration) ease-in, -webkit-transform var(--animation-duration) ease-in;
+  transition: margin-top var(--animation-duration) ease-in, -webkit-transform var(--animation-duration) ease-in;
+  transition: transform var(--animation-duration) ease-in, margin-top var(--animation-duration) ease-in;
+  transition: transform var(--animation-duration) ease-in, margin-top var(--animation-duration) ease-in, -webkit-transform var(--animation-duration) ease-in;
+}
+
+.info__city {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 5px;
+  -webkit-transition: margin-bottom var(--animation-duration) ease-in;
+  transition: margin-bottom var(--animation-duration) ease-in;
+}
+
+.info__city-marker {
+  width: 30px;
+  height: 40px;
+  margin-right: 3px;
+}
+
+.info__city-marker path {
+  fill: #fff;
+}
+
+.info__city-name {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1em;
+  color: #fff;
+}
+
+.info__date {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 0.666667em;
+  text-align: center;
+  color: #ffffff;
+}
+
+.info__date span:nth-child(2), .info__date span:nth-child(3) {
+  margin-right: 0.245em;
+}
+
+.info.active {
+  margin-top: 150px;
+  -webkit-transform: translateY(0) scale(1);
+          transform: translateY(0) scale(1);
+}
+
+.data {
+  position: absolute;
+  bottom: 35px;
+  left: 50%;
+  -webkit-transform: translateX(75%);
+          transform: translateX(75%);
+  -webkit-transition: -webkit-transform 0.5s ease-in 0.5s;
+  transition: -webkit-transform 0.5s ease-in 0.5s;
+  transition: transform 0.5s ease-in 0.5s;
+  transition: transform 0.5s ease-in 0.5s, -webkit-transform 0.5s ease-in 0.5s;
+  width: calc(100% - 70px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.data.active {
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.data__temperature {
+  position: relative;
+  cursor: pointer;
+  margin-right: 20px;
+  margin-bottom: -1.7em;
+}
+
+.data__temperature .value {
+  position: relative;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 300;
+  color: transparent;
+  -webkit-transform: translateY(0%);
+          transform: translateY(0%);
+  color: #fff;
+}
+
+.data__temperature .value[data-lenght="1"] {
+  font-size: 135px;
+  margin-left: 0.3em;
+}
+
+.data__temperature .value[data-lenght="2"] {
+  font-size: 135px;
+}
+
+.data__temperature .value[data-lenght="3"] {
+  font-size: 95px;
+  -webkit-transform: translateY(-8%);
+          transform: translateY(-8%);
+}
+
+.data__temperature .value[data-lenght="3"] ~ .degrees {
+  top: -1.5em;
+}
+
+.data__temperature .value[data-lenght="4"] {
+  font-size: 75px;
+  -webkit-transform: translateY(-16%);
+          transform: translateY(-16%);
+}
+
+.data__temperature .value[data-lenght="4"] ~ .degrees {
+  top: -2em;
+}
+
+.data__temperature .degrees {
+  font-size: 12px;
+  position: absolute;
+  top: 0;
+  right: -3em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
+}
+
+.data__temperature .degrees-item {
+  position: relative;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2em;
+  color: rgba(255, 255, 255, 0.75);
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
+}
+
+.data__temperature .degrees-item::after {
+  content: "";
+  width: 0%;
+  opacity: 0;
+  -webkit-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
+}
+
+.data__temperature .degrees-item.active {
+  font-size: 3em;
+  color: #fff;
+  -webkit-user-select: auto;
+     -moz-user-select: auto;
+      -ms-user-select: auto;
+          user-select: auto;
+}
+
+.data__temperature .degrees-item.active::before {
+  position: absolute;
+  -webkit-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
+  content: "";
+  top: 5px;
+  left: -12px;
+  font-size: 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+}
+
+.data__temperature .degrees-item.active::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: #ffffff;
+  border-radius: 25px;
+  left: 0;
+  bottom: 0;
+  opacity: 1;
+}
+
+.data__temperature .degrees-item::before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  font-size: 0px;
+}
+
+.data__temperature .degrees.active {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.data__temperature .degrees.active .degrees-item {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.data__forecast {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-right: 5px;
+}
+
+.data__forecast .icon {
+  position: relative;
+  width: 70px;
+  height: 70px;
+}
+
+.data__forecast .icon img {
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  -webkit-animation: icon-wertical 4s ease-in infinite alternate both, icon-horizontally 3s ease-in infinite alternate both;
+          animation: icon-wertical 4s ease-in infinite alternate both, icon-horizontally 3s ease-in infinite alternate both;
+}
+
+.data__forecast .weather {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.data__forecast .wind {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  text-align: center;
+  color: #ffffff;
+}
+
+@-webkit-keyframes icon-wertical {
+  0% {
+    top: 0;
+  }
+  33% {
+    top: 10px;
+  }
+  66% {
+    top: 0;
+  }
+  100% {
+    top: -10px;
+  }
+}
+
+@keyframes icon-wertical {
+  0% {
+    top: 0;
+  }
+  33% {
+    top: 10px;
+  }
+  66% {
+    top: 0;
+  }
+  100% {
+    top: -10px;
+  }
+}
+
+@-webkit-keyframes icon-horizontally {
+  0% {
+    left: 0;
+  }
+  33% {
+    left: 10px;
+  }
+  66% {
+    left: 0;
+  }
+  100% {
+    left: -10px;
+  }
+}
+
+@keyframes icon-horizontally {
+  0% {
+    left: 0;
+  }
+  33% {
+    left: 10px;
+  }
+  66% {
+    left: 0;
+  }
+  100% {
+    left: -10px;
+  }
+}
