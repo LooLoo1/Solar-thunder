@@ -1,5 +1,10 @@
 :root {
   --hover-color: #fff;
+  --focus-color-opacity: 0.5;
+  --focus-color1: 250, 255, 0;
+  --focus-color2: 250, 255, 0;
+  --focus-color3: 250, 255, 0;
+  --focus-color4: 250, 255, 0;
 }
 
 *,
@@ -9,6 +14,7 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin: 0;
+  outline: none;
 }
 
 a {
@@ -35,6 +41,16 @@ body {
   overflow: hidden;
 }
 
+*::-moz-selection {
+  --opacity: calc(var(--focus-color-opacity) + 0.1);
+  text-shadow: 0 0 10px rgba(var(--focus-color1), var(--opacity)), 0 0 15px rgba(var(--focus-color2), var(--opacity)), 0 0 20px rgba(var(--focus-color3), var(--opacity)), 0 0 30px rgba(var(--focus-color4), var(--opacity));
+}
+
+*::selection {
+  --opacity: calc(var(--focus-color-opacity) + 0.1);
+  text-shadow: 0 0 10px rgba(var(--focus-color1), var(--opacity)), 0 0 15px rgba(var(--focus-color2), var(--opacity)), 0 0 20px rgba(var(--focus-color3), var(--opacity)), 0 0 30px rgba(var(--focus-color4), var(--opacity));
+}
+
 .background {
   position: absolute;
   left: 0;
@@ -45,8 +61,20 @@ body {
   background: linear-gradient(180deg, #2d84da 0%, #56ccf2 31.04%, #b2fefa 63.33%, #6cdc38 82.6%, #149202 100%);
 }
 
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 .info {
   --animation-duration: 0.5s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -58,13 +86,20 @@ body {
       -ms-flex-align: center;
           align-items: center;
   font-size: 45px;
-  margin-top: 150px;
-  -webkit-transform: translateY(-250%) scale(0.833);
-          transform: translateY(-250%) scale(0.833);
+  padding-top: 150px;
+  z-index: 1;
+  -webkit-transform: translateY(calc(0px - (2em + 200px))) scale(0.833);
+          transform: translateY(calc(0px - (2em + 200px))) scale(0.833);
   -webkit-transition: margin-top var(--animation-duration) ease-in, -webkit-transform var(--animation-duration) ease-in;
   transition: margin-top var(--animation-duration) ease-in, -webkit-transform var(--animation-duration) ease-in;
   transition: transform var(--animation-duration) ease-in, margin-top var(--animation-duration) ease-in;
   transition: transform var(--animation-duration) ease-in, margin-top var(--animation-duration) ease-in, -webkit-transform var(--animation-duration) ease-in;
+}
+
+.info.active {
+  padding-top: 150px;
+  -webkit-transform: translateY(0) scale(1);
+          transform: translateY(0) scale(1);
 }
 
 .info__city {
@@ -83,18 +118,162 @@ body {
   width: 30px;
   height: 40px;
   margin-right: 3px;
+  -webkit-transform-origin: 50% 100%;
+          transform-origin: 50% 100%;
+  --animation-duration: 0.1s;
+  -webkit-transition: -webkit-filter calc(var(--animation-duration) * 5) ease-in 0s;
+  transition: -webkit-filter calc(var(--animation-duration) * 5) ease-in 0s;
+  transition: filter calc(var(--animation-duration) * 5) ease-in 0s;
+  transition: filter calc(var(--animation-duration) * 5) ease-in 0s, -webkit-filter calc(var(--animation-duration) * 5) ease-in 0s;
+}
+
+.info__city-marker:hover, .info__city-marker:focus {
+  cursor: pointer;
+  -webkit-animation: marker-hover calc(var(--animation-duration) * 10) linear both;
+          animation: marker-hover calc(var(--animation-duration) * 10) linear both;
+  --focus-color-opacity: 0.5;
+  -webkit-filter: drop-shadow(0px 0px 5px rgba(var(--focus-color1), var(--focus-color-opacity))) drop-shadow(0px 0px 10px rgba(var(--focus-color2), var(--focus-color-opacity))) drop-shadow(0px 0px 15px rgba(var(--focus-color3), var(--focus-color-opacity))) drop-shadow(0px 0px 20px rgba(var(--focus-color4), var(--focus-color-opacity)));
+          filter: drop-shadow(0px 0px 5px rgba(var(--focus-color1), var(--focus-color-opacity))) drop-shadow(0px 0px 10px rgba(var(--focus-color2), var(--focus-color-opacity))) drop-shadow(0px 0px 15px rgba(var(--focus-color3), var(--focus-color-opacity))) drop-shadow(0px 0px 20px rgba(var(--focus-color4), var(--focus-color-opacity)));
+  -webkit-transition: -webkit-filter calc(var(--animation-duration) * 5) linear var(--animation-duration);
+  transition: -webkit-filter calc(var(--animation-duration) * 5) linear var(--animation-duration);
+  transition: filter calc(var(--animation-duration) * 5) linear var(--animation-duration);
+  transition: filter calc(var(--animation-duration) * 5) linear var(--animation-duration), -webkit-filter calc(var(--animation-duration) * 5) linear var(--animation-duration);
 }
 
 .info__city-marker path {
   fill: #fff;
 }
 
+.info__city-form::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+  background: rgba(0, 0, 0, 0.25);
+  -webkit-backdrop-filter: blur(17px);
+          backdrop-filter: blur(17px);
+  pointer-events: none;
+  opacity: 0;
+  z-index: -1;
+}
+
+.info__city-form .tips {
+  position: absolute;
+  overflow-y: scroll;
+  cursor: pointer;
+  margin-top: 5px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 358px;
+  max-height: 0;
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+  background: rgba(255, 255, 255, 0.01);
+  border: 0px solid #ffffff;
+  -webkit-backdrop-filter: blur(100px);
+          backdrop-filter: blur(100px);
+  border-radius: 10px;
+  margin-left: 0;
+  padding: 0;
+}
+
+.info__city-form .tips-item {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  color: var(--hover-color);
+  list-style-type: none;
+  padding: 3.3px 8px;
+  margin: 0 8px;
+  border-radius: 15px;
+  -webkit-transition: background 0.2s ease-in 0s;
+  transition: background 0.2s ease-in 0s;
+}
+
+.info__city-form .tips-item:first-child {
+  margin-top: 6px;
+}
+
+.info__city-form .tips-item:last-child {
+  margin-bottom: 6px;
+}
+
+.info__city-form .tips-item:hover, .info__city-form .tips-item:focus {
+  -webkit-transition: background 0s ease-in 0.2;
+  transition: background 0s ease-in 0.2;
+  background: rgba(255, 255, 255, 0.3);
+}
+
 .info__city-name {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
   font-size: 1em;
   color: #fff;
+  width: 325px;
+  background: transparent;
+  border: 0;
+  caret-color: #fff;
+}
+
+.info__city-name::before {
+  content: "";
+  position: absolute;
+  display: block;
+  bottom: 0%;
+  left: 0px;
+  width: 100%;
+  height: 5px;
+  background: #fff;
+  -webkit-transform-origin: right top;
+          transform-origin: right top;
+  -webkit-transform: scale(0, 1);
+          transform: scale(0, 1);
+  -webkit-transition: -webkit-transform 0.4s cubic-bezier(1, 0, 0, 1);
+  transition: -webkit-transform 0.4s cubic-bezier(1, 0, 0, 1);
+  transition: transform 0.4s cubic-bezier(1, 0, 0, 1);
+  transition: transform 0.4s cubic-bezier(1, 0, 0, 1), -webkit-transform 0.4s cubic-bezier(1, 0, 0, 1);
+}
+
+.info__city-name::-webkit-input-placeholder {
+  color: #fff;
+}
+
+.info__city-name:-ms-input-placeholder {
+  color: #fff;
+}
+
+.info__city-name::-ms-input-placeholder {
+  color: #fff;
+}
+
+.info__city-name::placeholder {
+  color: #fff;
+}
+
+.info__city-name:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.info__city-name:focus:-ms-input-placeholder {
+  color: transparent;
+}
+
+.info__city-name:focus::-ms-input-placeholder {
+  color: transparent;
+}
+
+.info__city-name:focus::placeholder {
+  color: transparent;
 }
 
 .info__date {
@@ -113,10 +292,14 @@ body {
   margin-right: 0.245em;
 }
 
-.info.active {
-  margin-top: 150px;
-  -webkit-transform: translateY(0) scale(1);
-          transform: translateY(0) scale(1);
+.tips-active + .tips {
+  border: 1px solid #ffffff;
+  max-height: 192px;
+}
+
+.active.info__city-form::before {
+  pointer-events: auto;
+  opacity: 1;
 }
 
 .data {
@@ -151,6 +334,8 @@ body {
   cursor: pointer;
   margin-right: 20px;
   margin-bottom: -1.7em;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
 }
 
 .data__temperature .value {
@@ -335,6 +520,19 @@ body {
   color: #ffffff;
 }
 
+.data input[type="checkbox"] {
+  position: absolute;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+.data input[type="checkbox"]:focus-visible + .data__temperature {
+  --focus-color-opacity: 0.5;
+  -webkit-filter: drop-shadow(0px 0px 5px rgba(var(--focus-color1), var(--focus-color-opacity))) drop-shadow(0px 0px 10px rgba(var(--focus-color2), var(--focus-color-opacity))) drop-shadow(0px 0px 15px rgba(var(--focus-color3), var(--focus-color-opacity))) drop-shadow(0px 0px 20px rgba(var(--focus-color4), var(--focus-color-opacity)));
+          filter: drop-shadow(0px 0px 5px rgba(var(--focus-color1), var(--focus-color-opacity))) drop-shadow(0px 0px 10px rgba(var(--focus-color2), var(--focus-color-opacity))) drop-shadow(0px 0px 15px rgba(var(--focus-color3), var(--focus-color-opacity))) drop-shadow(0px 0px 20px rgba(var(--focus-color4), var(--focus-color-opacity)));
+}
+
 @-webkit-keyframes icon-wertical {
   0% {
     top: 0;
@@ -392,5 +590,43 @@ body {
   }
   100% {
     left: -10px;
+  }
+}
+
+@-webkit-keyframes marker-hover {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  25% {
+    -webkit-transform: rotate(15deg);
+            transform: rotate(15deg);
+  }
+  50% {
+    -webkit-transform: rotate(-14deg);
+            transform: rotate(-14deg);
+  }
+  100% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+}
+
+@keyframes marker-hover {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  25% {
+    -webkit-transform: rotate(15deg);
+            transform: rotate(15deg);
+  }
+  50% {
+    -webkit-transform: rotate(-14deg);
+            transform: rotate(-14deg);
+  }
+  100% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
   }
 }

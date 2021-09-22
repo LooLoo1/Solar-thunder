@@ -23,11 +23,31 @@
 	</div>
 	<header class="info">
 		<div class="info__city">
-			<svg class="info__city-marker" viewBox="0 0 21 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<svg class="info__city-marker" viewBox="0 0 21 27" fill="none" xmlns="http://www.w3.org/2000/svg" tabindex="1">
 				<path
 					d="M9.04508 25.4868C1.5866 14.8221 0.188581 13.7182 0.248776 9.84016C0.33123 4.5281 4.90754 0.28856 10.4703 0.370837C16.0331 0.453113 20.4757 4.82605 20.3932 10.1381C20.333 14.0161 18.9014 15.0782 11.1153 25.5174C10.6044 26.2001 9.53452 26.1842 9.04508 25.4868ZM10.2588 13.9968C12.5766 14.031 14.4834 12.2646 14.5178 10.0512C14.5521 7.83784 12.701 6.01579 10.3832 5.98151C8.06539 5.94723 6.1586 7.7137 6.12424 9.92706C6.08989 12.1404 7.94098 13.9625 10.2588 13.9968Z" />
 			</svg>
-			<h1 class="info__city-name">Ivano-Frankivsk</h1>
+			<!-- <h1 class="info__city-name">Ivano-Frankivsk</h1> -->
+			<div class="info__city-form">
+				<!--It is FORM-->
+				<input class="info__city-name" placeholder="Ivano-Frankivsk" name="city" list="city" type="text"
+					autocomplete="off" tabindex="1">
+				<ul class="tips">
+					<li class="tips-item" tabindex="1">Ivano-Frankivsk</li>
+					<li class="tips-item" tabindex="1">Ivano-Frankivsk, Ukraine</li>
+					<li class="tips-item" tabindex="1">Ivano-Frankivsk, Ukraine</li>
+					<li class="tips-item" tabindex="1">Ivano-Frankivsk, Ukraine</li>
+					<li class="tips-item" tabindex="1">Ivano-Frankivsk, Ukraine</li>
+					<li class="tips-item" tabindex="1">Ivano-Frankivsk, Ukraine</li>
+				</ul>
+			</div>
+			<!-- <datalist class="tips" id="city">
+				<option class="tips-item">Апостолове</option>
+				<option class="tips-item">Верхівцеве</option>
+				<option class="tips-item">Верхньодніпровськ</option>
+				<option class="tips-item">Вільногірськ</option>
+				<option class="tips-item">Дніпро</option>
+			</datalist> -->
 		</div>
 		<div class="info__date">
 			<span>Sunday</span>
@@ -36,23 +56,44 @@
 			<span>30</span>
 			<span>th</span>
 		</div>
+		<!-- <div class="info__cities">
+			<div class="info__cities-item">
+				<h3 class="name">Ivano-Frankivsk</h3>
+				<div class="date">
+					<span>Sunday</span>
+					<span>,</span>
+					<span>Aug</span>
+					<span>30</span>
+					<span>th</span>
+				</div>
+				<div class="value">
+					<h4 class="value">32</h4>
+					<img src="img/Son-icon.svg" alt="Son">
+				</div>
+				<div class="earth">
+					<div class="earth-item"></div>
+				</div>
+
+			</div>
+		</div> -->
+
 		<!-- <div class="info__first"></div> -->
 	</header>
 	<footer class="data">
-		<div class="data__temperature">
+		<input type="checkbox" id="d_temperature" tabindex="1">
+		<label class="data__temperature" for="d_temperature">
 			<h2 class="value" data-lenght="2">32</h2>
 			<div class="degrees">
 				<span class="degrees-item active">C</span>
 				<span class="degrees-item">F</span>
 			</div>
-		</div>
+		</label>
 		<div class="data__forecast">
 			<div class="icon"><img src="img/Son-icon.svg"></div>
 			<div class="weather">Sunny</div>
 			<div class="wind">Wind <span>5</span> km/h</div>
 		</div>
 	</footer>
-
 
 	<script src="js/main.js"></script>
 </body>

@@ -1,12 +1,28 @@
 :root {
 	--hover-color: #fff;
+
+	//Focus and select text
+	--focus-color-opacity: 0.5;
+	--focus-color1: 250, 255, 0;
+	--focus-color2: 250, 255, 0;
+	--focus-color3: 250, 255, 0;
+	--focus-color4: 250, 255, 0;
 }
+
+// hsla(360, 79%, 44%, 1)
+
 *,
 *:before,
 *:after {
 	font-family: "Roboto", sans-serif;
 	box-sizing: border-box;
 	margin: 0;
+	outline: none;
+
+	// Це для кнопки яка зменшує лаги вимикаючи анімації хосаби для фону. для малих ти знову введеш !important щоб вони і на далі працювали
+	// 	animation-play-state: running !important;
+	// animation-play-state: paused !important;
+	// transition-duration: 0s !important;
 }
 
 a {
@@ -27,7 +43,19 @@ body {
 	width: 414px;
 	height: 896px;
 	overflow: hidden;
-	// background: #fff;
+}
+
+*::selection {
+	// // --focus-color-opacity: 0.6;
+	// --focus-color-opacity: calc(var(--focus-color-opacity) + 0.1);
+	// text-shadow: 0 0 10px rgba(var(--focus-color1), var(--focus-color-opacity)),
+	// 	0 0 15px rgba(var(--focus-color2), var(--focus-color-opacity)),
+	// 	0 0 20px rgba(var(--focus-color3), var(--focus-color-opacity)),
+	// 	0 0 30px rgba(var(--focus-color4), var(--focus-color-opacity));
+
+	--opacity: calc(var(--focus-color-opacity) + 0.1);
+	text-shadow: 0 0 10px rgba(var(--focus-color1), var(--opacity)), 0 0 15px rgba(var(--focus-color2), var(--opacity)),
+		0 0 20px rgba(var(--focus-color3), var(--opacity)), 0 0 30px rgba(var(--focus-color4), var(--opacity));
 }
 
 // *::selection {
@@ -62,4 +90,12 @@ body {
 	right: 0;
 	bottom: 0;
 	background: linear-gradient(180deg, #2d84da 0%, #56ccf2 31.04%, #b2fefa 63.33%, #6cdc38 82.6%, #149202 100%);
+}
+
+::-webkit-scrollbar {
+	width: 0px;
+}
+
+::-webkit-scrollbar-corner {
+	background: transparent;
 }
