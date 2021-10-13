@@ -1,9 +1,9 @@
 .info {
-	--animation-duration: 0.5s;
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
+	pointer-events: none;
 	// bottom: 0;
 	// pointer-events: none;
 	display: flex;
@@ -28,6 +28,7 @@
 	&__city {
 		display: flex;
 		align-items: center;
+		pointer-events: auto;
 		margin-bottom: 5px;
 		transition: margin-bottom var(--animation-duration) ease-in;
 		&-marker {
@@ -60,7 +61,7 @@
 				position: absolute;
 				left: 0;
 				top: 0;
-				width: 100vw;
+				width: 100%;
 				height: 100vh;
 				transition: all 0.2s linear;
 
@@ -160,6 +161,8 @@
 
 	&__date {
 		display: flex;
+		pointer-events: auto;
+
 		font-family: Roboto;
 		font-style: normal;
 		font-weight: normal;
