@@ -1,4 +1,4 @@
-//Animation when loading page
+//Animation when loading page ================================================================================
 const b = document.querySelector('body'),
 	mainInfo = document.querySelector('.info'),
 	footerInfo = document.querySelector('footer.data'),
@@ -14,12 +14,22 @@ window.addEventListener("load", function (event) {
 
 
 
-//Cap of temperature values
+
+//Різна затримка для пунктів настройок ================================================================================
+let inputTheme = document.querySelectorAll(".row .settings__theme-item");
+for (let i = 0; i < inputTheme.length; i++) {
+	inputTheme[i].style.setProperty('--animation-del', `${getRandomArbitrary(0, 10) - 10}s`);
+	inputTheme[i].style.setProperty('--animation-del2', `${getRandomArbitrary(0, 10) - 10}s`);
+}
+
+
+
+
+//Cap of temperature values ================================================================================
 let mainC = Math.round(getRandomArbitrary(0, 80)) - 50,//Допоміжна пеермінна
+	//Зробиш щоб динамічно підставлялося значення з прогнозу і автоматично переводитиметься в F
 	temp = cСonversionF(mainC),
 	CF = temp.C;
-// console.log(temp.C, temp.F);
-
 
 function cСonversionF(cValue) {
 	return {
@@ -28,20 +38,16 @@ function cСonversionF(cValue) {
 	};
 }
 
-
-
+// Чекбокс температури ================================================================================
 const value = document.querySelector(".value"),
 	degrees = document.querySelectorAll(".degrees-item"),
 	degreesCont = document.querySelector(".degrees"),
 	tempInput = document.querySelector("#d_temperature");
 
 tempСhange(value, CF);
-// tempCont.onload = changeTempValues();
 tempInput.addEventListener('change', degreeСhange);
 
 function degreeСhange() {
-	// if (tempInput.checked) { alert('Выбран'); }
-	// else { alert('Не выбран'); }
 	degreesCont.classList.toggle('active');
 	CF = (CF == temp.C) ? CF = temp.F : CF = temp.C;
 	tempСhange(value, CF);
@@ -50,24 +56,15 @@ function degreeСhange() {
 	}
 }
 
-
 function tempСhange(el, deg) {
 	el.innerHTML = deg;
 	el.dataset.lenght = deg.toString().length;
 }
 
 
-function getRandomArbitrary(min, max) {
-	return Math.random() * (max - min) + min;
-}
 
 
-
-
-
-
-
-// Input city
+// Input city ================================================================================
 const inputCity = document.querySelector(".info__city-name"),
 	inputCityBG = document.querySelector(".info__city-form"),
 	cityMarker = document.querySelector(".info__city-marker");
@@ -92,6 +89,7 @@ inputCity.addEventListener("focus", function () {
 
 	//Повністю розфокосується при enter і ''
 	this.addEventListener("keydown", (e) => {
+		tipsReset();
 		var key = e.keyCode || e.which;
 		if (key == 13 && this.value == "") {
 			inputCityBlur(this);
@@ -125,7 +123,6 @@ cityMarker.addEventListener("focus", function () {
 cityMarker.addEventListener("click", function () {
 	inputCity.focus();
 });
-
 function tipsReset() {
 	let items = document.querySelectorAll(".tips-item");
 	for (let i = 0; i < items.length; i++) {
@@ -136,17 +133,12 @@ function tipsReset() {
 
 	}
 }
-
 tipsReset();//Дороби коли динамічно мінятимеш можливі варіанти
 
 
-// function classRemove(elem, whatClass) {
-// 	elem.classList.remove(whatClass);
-// }
 
 
-
-//Ввімкнути і вимкнути настройки
+//Ввімкнути і вимкнути настройки ================================================================================
 const settingsOut = document.querySelector('.settings__out'),
 	settingBody = document.querySelector('.settings');
 
@@ -163,17 +155,283 @@ function settingСhange() {
 
 
 
-//Фішка для ренджа у якості фону
-const ranges = document.querySelectorAll(".settings__audio-range input");
+
+//Фішка для ренджа настройок у якості фону ================================================================================
+const ranges = document.querySelectorAll(".settings__audio .settings__audio-range input");
+
+//Перевірка чи кука є
 for (let i = 0; i < ranges.length; i++) {
+	if (!get_cookie(`audio-range${i + 1}`)) {
+		let date = cookies_create_date();
+		set_cookie(`audio-range${i + 1}`, ranges[i].value, date[0], date[1], date[2]);
+	}
+
 	ranges[i].addEventListener("input", (e) => {
+		let date = cookies_create_date();
 		ranges[i].style.setProperty('--shodow-size', `${ranges[i].value}%`);
+		set_cookie(`audio-range${i + 1}`, ranges[i].value, date[0], date[1], date[2]);
 	});
+	ranges[i].style.setProperty('--shodow-size', get_cookie(`audio-range${i + 1}`) + "%");
+	ranges[i].value = get_cookie(`audio-range${i + 1}`);
 }
 
-for (let i = 0; i < ranges.length; i++) {
-	ranges[i].style.setProperty('--shodow-size', `${ranges[i].value}%`);
+
+
+
+
+
+// Настройки ============================================================================================
+
+//Вмикач звуку і допомога для читання у вигляді тіні  ==========================
+const sound = document.querySelector(".settings__helpers .sound input");
+const readingHelp = document.querySelector(".settings__helpers .reading-help input");
+
+if (!get_cookie(`sound`)) {
+	let date = cookies_create_date();
+	set_cookie(`sound`, sound.checked, date[0], date[1], date[2]);
 }
+if (!get_cookie(`readingHelp`)) {
+	let date = cookies_create_date();
+	set_cookie(`readingHelp`, readingHelp.checked, date[0], date[1], date[2]);
+}
+
+sound.addEventListener('change', settingsHelpers);
+readingHelp.addEventListener('change', settingsHelpers);
+
+function settingsHelpers() {
+	console.log(this);
+	let date = cookies_create_date();
+	set_cookie(`${this.name}`, this.checked, date[0], date[1], date[2]);
+}
+
+sound.checked = (get_cookie(`sound`) === "true");
+readingHelp.checked = (get_cookie(`readingHelp`) === "true");
+
+
+//Темна чи світла схема  ==========================
+const whiteBG = document.querySelector("#White-BG"),
+	darkBG = document.querySelector("#Dark-BG");
+
+//Перевірка чи кука є
+if (!get_cookie("thema-BG")) {   //Зроби щоб перша вибиралася автоматом від комп теми
+	let date = cookies_create_date();
+	set_cookie("thema-BG", whiteBG.value, date[0], date[1], date[2]);
+}
+
+whiteBG.addEventListener('change', themeBGChange);
+darkBG.addEventListener('change', themeBGChange);
+
+//Функції змін значень кууки
+function themeBGChange() {
+	let date = cookies_create_date();
+	set_cookie("thema-BG", this.value, date[0], date[1], date[2]);
+	classesBodyThemeBG();
+}
+
+function classesBodyThemeBG() {   //Перепиши
+	let themaBG = get_cookie("thema-BG");
+
+	switch (themaBG) {
+		case 'white':
+			whiteBG.checked = true;
+			b.classList.remove("BG-dark")
+			b.classList.add("BG-white")
+			break;
+
+		case 'dark':
+			darkBG.checked = true;
+			b.classList.add("BG-dark")
+			b.classList.remove("BG-white")
+			break;
+		default:
+			whiteBG.checked = true;
+			b.classList.remove("BG-dark")
+			b.classList.add("BG-white")
+			break;
+	}
+}
+
+
+
+//Темна прозорість  ==========================
+const opacityBG = document.querySelector("#opacity-BG");
+
+//Перевірка чи кука є
+if (!get_cookie("thema-BG-opacity")) {
+	let date = cookies_create_date();
+	set_cookie("thema-BG-opacity", opacityBG.value, date[0], date[1], date[2]);
+	themeBGOpacityEstablish();
+}
+
+opacityBG.addEventListener('change', themeBGOpacityChange);
+
+//Функції змін значень кууки
+function themeBGOpacityChange() {
+	let date = cookies_create_date();
+	if (get_cookie("thema-BG-opacity") == "opacity") {
+		set_cookie("thema-BG-opacity", null, date[0], date[1], date[2]);
+	} else {
+		set_cookie("thema-BG-opacity", opacityBG.value, date[0], date[1], date[2]);
+	}
+	themeBGOpacityEstablish();
+}
+
+function themeBGOpacityEstablish() {
+	if (get_cookie("thema-BG-opacity") == "opacity") {
+		b.classList.add("opacity");
+		opacityBG.classList.remove("active");
+	} else {
+		b.classList.remove("opacity");
+		opacityBG.classList.add("active");
+	}
+}
+
+
+
+//Основна тема  ==========================
+const themes = document.querySelectorAll('.settings__theme-conteiner input[name="theme"]');
+
+if (!get_cookie("thema")) {
+	let date = cookies_create_date();
+	set_cookie("thema", themes[0].value, date[0], date[1], date[2]);
+	themes[0].checked = true;
+}
+
+for (let i = 0; i < themes.length; i++) {
+	themes[i].addEventListener('change', themaChange);
+}
+
+function themaChange() {
+	let date = cookies_create_date();
+	set_cookie("thema", this.value, date[0], date[1], date[2]);
+	classesBodyTheme();
+}
+
+function classesBodyTheme() {
+	let thema = get_cookie("thema");
+	for (let i = 0; i < themes.length; i++) {
+		b.classList.remove(`${themes[i].value}`);
+		if (thema == themes[i].value) {
+			themes[i].checked = true;
+		}
+	}
+	b.classList.add(`${thema}`)
+}
+
+
+
+
+//Затемнення фону  ==========================
+const eclipseRange = document.querySelector("#eclipse"),
+	eclipseBG = document.querySelector(".conteiner.eclipse");
+
+if (!get_cookie("thema-eclipse")) {
+	let date = cookies_create_date();
+	set_cookie("thema-eclipse", eclipse(), date[0], date[1], date[2]);
+}
+
+eclipseRange.addEventListener('input', themeEclipse);
+
+function themeEclipse() {
+	let date = cookies_create_date();
+	set_cookie("thema-eclipse", eclipse(), date[0], date[1], date[2]);
+	eclipseBG.style.backgroundColor = `rgba(0, 0, 0, 0.${eclipse()})`;
+}
+
+function eclipse() {
+	return eclipseRange.value < 10 ? `0${eclipseRange.value}` : eclipseRange.value;
+}
+
+
+
+//Авто встановлення настройок з куки ==========================
+function savedSettings() {
+	themeBGOpacityEstablish();
+	classesBodyThemeBG();
+	classesBodyTheme();
+
+	eclipseRange.value = get_cookie("thema-eclipse");
+	themeEclipse();
+}
+
+savedSettings();
+// console.log(document.cookie);
+
+
+
+
+
+
+
+
+
+
+
+// Допоміжні функції ==============================================================
+function getRandomArbitrary(min, max) {
+	return Math.random() * (max - min) + min;
+}
+
+//Створити
+function set_cookie(name, value, exp_y, exp_m, exp_d, path, domain, secure) {
+	var cookie_string = name + "=" + escape(value);
+
+	if (exp_y) {
+		var expires = new Date(exp_y, exp_m, exp_d);
+		cookie_string += "; expires=" + expires.toGMTString();
+	}
+
+	if (path)
+		cookie_string += "; path=" + escape(path);
+
+	if (domain)
+		cookie_string += "; domain=" + escape(domain);
+
+	if (secure)
+		cookie_string += "; secure";
+
+	document.cookie = cookie_string;
+}
+
+//Кука на 5 років
+function cookies_create_date() {
+	var current_date = new Date;
+	var cookie_year = current_date.getFullYear() + 5;
+	var cookie_month = current_date.getMonth();
+	var cookie_day = current_date.getDate();
+	return [cookie_year, cookie_month, cookie_day]
+}
+
+//Видалити
+function delete_cookie(cookie_name) {
+	var cookie_date = new Date();  // Текущая дата и время
+	cookie_date.setTime(cookie_date.getTime() - 1);
+	document.cookie = cookie_name += "=; expires=" + cookie_date.toGMTString();
+}
+
+//Получити значення
+function get_cookie(cookie_name) {
+	var results = document.cookie.match('(^|;) ?' + cookie_name + '=([^;]*)(;|$)');
+
+	if (results)
+		return (unescape(results[2]));
+	else
+		return null;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //Декілька кук
@@ -331,131 +589,3 @@ for (let i = 0; i < ranges.length; i++) {
 // }
 
 
-
-
-
-const schedule = [{  //Цикл 371 година
-	imgURL: "Challenge Token",
-	timeDuration: 10800000//3 години в мілісекундах
-}, {
-	imgURL: "Campaing Passes x5",
-	timeDuration: 108000000//1 день і 6 годин
-}, {
-	imgURL: "Double XP-3days",
-	timeDuration: 36000000//10 годин
-}, {
-	imgURL: "Critical Stirikes-3days",
-	timeDuration: 54000000//15 годин
-}, {
-	imgURL: "Campaing Passes x25",
-	timeDuration: 129600000//1 день і 12 годин
-}, {
-	imgURL: "Jackpot Token",
-	timeDuration: 68400000//19 годин
-}, {
-	imgURL: "Anti-Critical Shield-1day",
-	timeDuration: 43200000//12 години
-}, {
-	imgURL: "Reactor Token",
-	timeDuration: 10800000//3 години
-}, {
-	imgURL: "Triple XP-3days",
-	timeDuration: 64800000//18 годин
-}, {
-	imgURL: "Double Regeneration-7days",
-	timeDuration: 151200000//1 день і 18 годин
-}, {
-	imgURL: "Critical Stirikes-7days",
-	timeDuration: 54000000//15 годин
-}, {
-	imgURL: "Anti-Critical Shield-3days",
-	timeDuration: 43200000//12 години
-}, {
-	imgURL: "Campaing Passes x25",
-	timeDuration: 86400000//1 день
-}, {
-	imgURL: "Jackpot Token",
-	timeDuration: 129600000//1 день і 12 годин
-}, {
-	imgURL: "Double Regeneration-3days",
-	timeDuration: 129600000//1 день і 12 годин
-}, {
-	imgURL: "Triple XP-7days",
-	timeDuration: 86400000//1 день
-}, {
-	imgURL: "Campaing Passes x25",
-	timeDuration: 43200000//12 години
-}, {
-	imgURL: "Quadruple Regeneration-3days",
-	timeDuration: 86400000//1 день
-}
-];
-
-const timeMilisecond = [
-	31557600000,//Рік
-	2629800000,//Місяць
-	// 604800016.56,//Тиждень
-	86400000,//День
-	3600000,//Година
-	60000,//Хвилина
-	1000//Cекунда
-];
-
-scheduleDuration = 0;
-for (let j = 0; j < schedule.length; j++) {
-	scheduleDuration += schedule[j].timeDuration;
-}
-
-const startTime = 1633240713000 - 600000 - 13000;
-let time = new Date();
-let nowTime = Date.parse(time);
-
-function scheduleNow(now, start) {
-	let elapsedTime = now - start;
-	if (elapsedTime >= scheduleDuration) {
-		elapsedTime -= scheduleDuration * Math.trunc(elapsedTime / scheduleDuration);
-	}
-	let i = elapsedTime;
-	let j = 0;
-	while (i >= schedule[j].timeDuration) {
-		// console.log(i, schedule[j].imgURL);
-		i -= schedule[j].timeDuration;
-		j++;
-		if (j >= schedule.length) j = 0;
-	}
-
-
-	// dateСalculation(schedule[j].timeDuration);
-	// console.log(i);
-	dateСalculation(schedule[j].timeDuration - i);
-
-}
-
-
-// let nm = 0;
-var nowTimer = setInterval(myTimer, 1000);
-
-function myTimer() {
-	// if (nm >= 5) stopTimer();
-	// console.log(nm);
-	// nm++
-
-	let time = new Date();
-	let nowTime = Date.parse(time);
-	scheduleNow(nowTime, startTime);
-}
-
-function stopTimer() {
-	clearInterval(nowTimer);
-}
-
-
-function dateСalculation(num) {
-	let days = [];
-	for (let i = 0; i < timeMilisecond.length; i++) {
-		// let n = Math.trunc(num / timeMilisecond[i]);
-		days[i] = Math.trunc(num / timeMilisecond[i]);
-		num -= days[i] * timeMilisecond[i];
-	}
-	console.log(days);
-}

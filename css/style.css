@@ -1,3 +1,4 @@
+@charset "UTF-8";
 :root {
   --animation-duration: 0.5s;
   --hover-color: #fff;
@@ -745,6 +746,10 @@ body {
   position: absolute;
   width: inherit;
   height: inherit;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .settings__helpers-item svg path {
@@ -779,6 +784,9 @@ body {
 .settings__helpers-item input[type="checkbox"]:focus-visible + .conteiner, .settings__helpers-item.settings__out:focus-visible {
   -webkit-animation: settings__helpers-sound calc(var(--animation-duration) * 5) linear both;
           animation: settings__helpers-sound calc(var(--animation-duration) * 5) linear both;
+  --focus-color-opacity: 0.5;
+  -webkit-filter: drop-shadow(0px 0px 5px rgba(var(--focus-color1), var(--focus-color-opacity))) drop-shadow(0px 0px 10px rgba(var(--focus-color2), var(--focus-color-opacity))) drop-shadow(0px 0px 15px rgba(var(--focus-color3), var(--focus-color-opacity))) drop-shadow(0px 0px 20px rgba(var(--focus-color4), var(--focus-color-opacity)));
+          filter: drop-shadow(0px 0px 5px rgba(var(--focus-color1), var(--focus-color-opacity))) drop-shadow(0px 0px 10px rgba(var(--focus-color2), var(--focus-color-opacity))) drop-shadow(0px 0px 15px rgba(var(--focus-color3), var(--focus-color-opacity))) drop-shadow(0px 0px 20px rgba(var(--focus-color4), var(--focus-color-opacity)));
 }
 
 .settings__out {
@@ -814,7 +822,7 @@ body {
           transform: translate(-50%, -50%) rotate(-45deg);
 }
 
-.settings__audio {
+.settings__mini-conteiner {
   margin-top: auto;
 }
 
@@ -954,83 +962,242 @@ body {
   margin-top: 20px;
 }
 
-.settings__theme .row:nth-child(1) .settings__theme-item:nth-child(1) {
-  background: -webkit-gradient(linear, left top, left bottom, from(#2d84da), color-stop(31.04%, #56ccf2), color-stop(63.33%, #b2fefa), color-stop(82.6%, #6cdc38), to(#149202));
-  background: linear-gradient(180deg, #2d84da 0%, #56ccf2 31.04%, #b2fefa 63.33%, #6cdc38 82.6%, #149202 100%);
-}
-
-.settings__theme .row .settings__theme-item:nth-child(1),
-.settings__theme .row .settings__theme-item:nth-child(3) {
-  width: 60px;
-  height: 60px;
-  background: red;
-}
-
-.settings__theme-item {
+.settings__theme-conteiner {
   position: relative;
-  border-radius: 50%;
   cursor: pointer;
-  -webkit-box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.5);
-          box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.5);
+  /*Добав вибране і не вибране
+Фокус через клавіатуру як свічіння а через мишку такийже як коли чекед*/
 }
 
-.settings__theme-item input[type="radio"],
-.settings__theme-item input[type="checkbox"],
-.settings__theme-item input[type="range"] {
+.settings__theme-conteiner input[type="radio"],
+.settings__theme-conteiner input[type="checkbox"],
+.settings__theme-conteiner input[type="range"] {
   position: absolute;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
   opacity: 0;
+  z-index: -1;
 }
 
-.settings__theme-item input[type="checkbox"] {
+.settings__theme-conteiner input[type="radio"] + .settings__theme-item,
+.settings__theme-conteiner .settings__theme-item[for="eclipse"] {
   position: relative;
-  pointer-events: auto;
-  opacity: 1;
-  width: 65px;
-  height: 33px;
+  display: block;
+  width: 60px;
+  height: 60px;
+  background-color: red;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  border-radius: 50%;
+  -webkit-filter: none;
+          filter: none;
+  -webkit-transition: all 0.5s linear;
+  transition: all 0.5s linear;
 }
 
-.settings__theme-item input[type="checkbox"]::after, .settings__theme-item input[type="checkbox"]::before {
+.settings__theme-conteiner input[type="radio"] + .settings__theme-item {
+  -webkit-transition: -webkit-box-shadow 0.5s linear;
+  transition: -webkit-box-shadow 0.5s linear;
+  transition: box-shadow 0.5s linear;
+  transition: box-shadow 0.5s linear, -webkit-box-shadow 0.5s linear;
+}
+
+.settings__theme-conteiner input[type="radio"] + .settings__theme-item::after {
+  -webkit-animation: border-transform 6s linear infinite var(--animation-del), item-rotate 5s linear infinite var(--animation-del);
+          animation: border-transform 6s linear infinite var(--animation-del), item-rotate 5s linear infinite var(--animation-del);
+}
+
+.settings__theme-conteiner input[type="radio"] + .settings__theme-item::before {
+  animation: border-transform 6s linear infinite var(--animation-del2), item-rotate 5s linear infinite reverse var(--animation-del2);
+}
+
+.settings__theme-conteiner input[type="radio"] + .settings__theme-item::before, .settings__theme-conteiner input[type="radio"] + .settings__theme-item::after {
   content: "";
   position: absolute;
-}
-
-.settings__theme-item input[type="checkbox"]::before {
-  width: inherit;
-  height: inherit;
-  border-radius: 45px;
+  width: 100%;
+  height: 100%;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  background: rgba(255, 255, 255, 0.5);
+  background: inherit;
+  opacity: 0;
+  z-index: -1;
+  -webkit-transition: all 0.7s linear;
+  transition: all 0.7s linear;
+  -webkit-animation-play-state: paused;
+          animation-play-state: paused;
 }
 
-.settings__theme-item input[type="checkbox"]::after {
-  width: 25px;
-  height: 25px;
+.settings__theme-conteiner input[type="radio"]:checked + .settings__theme-item::before, .settings__theme-conteiner input[type="radio"]:checked + .settings__theme-item::after {
+  width: 125%;
+  height: 125%;
+  opacity: 0.5;
+  -webkit-animation-play-state: running;
+          animation-play-state: running;
+}
+
+.settings__theme-conteiner input[id="Dynamic-background"] + .settings__theme-item {
+  background: -webkit-gradient(linear, left top, left bottom, from(#2d84da), color-stop(31.04%, #56ccf2), color-stop(63.33%, #b2fefa), color-stop(82.6%, #6cdc38), to(#149202));
+  background: linear-gradient(180deg, #2d84da 0%, #56ccf2 31.04%, #b2fefa 63.33%, #6cdc38 82.6%, #149202 100%);
+}
+
+.settings__theme-conteiner input[id="Sexy-night"] + .settings__theme-item {
+  background: -webkit-gradient(linear, left top, left bottom, from(#1b2858), color-stop(74.27%, #283691), color-stop(86.77%, #002b48), to(#01111c));
+  background: linear-gradient(180deg, #1b2858 0%, #283691 74.27%, #002b48 86.77%, #01111c 100%);
+}
+
+.settings__theme-conteiner input[id="Dark"] + .settings__theme-item {
+  background: #181818;
+}
+
+.settings__theme-conteiner input[id="Clear-sky"] + .settings__theme-item {
+  background: -webkit-gradient(linear, left top, left bottom, from(#2d84da), to(#84ded9)), -webkit-gradient(linear, left top, left bottom, from(#001a9f), to(#00d1ff));
+  background: linear-gradient(180deg, #2d84da 0%, #84ded9 100%), linear-gradient(180deg, #001a9f 0%, #00d1ff 100%);
+}
+
+.settings__theme-conteiner input[id="Marta"] + .settings__theme-item {
+  background: -webkit-gradient(linear, left top, left bottom, from(#40287c), to(#120439)), -webkit-gradient(linear, left top, left bottom, from(#ffa4fb), color-stop(43.54%, #da0069), to(#600062));
+  background: linear-gradient(180deg, #40287c 0%, #120439 100%), linear-gradient(180deg, #ffa4fb 0%, #da0069 43.54%, #600062 100%);
+}
+
+.settings .row.row-minestyle .settings__theme-item.settings__audio-range {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.settings .row.row-minestyle .settings__theme-item.settings__audio-range input[type="range"] {
+  margin: 0 auto;
+  width: 200px;
+  height: 50px;
+}
+
+.settings .row.row-minestyle .settings__theme-item.settings__audio-range input[type="range"]::-webkit-slider-runnable-track {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(15%, rgba(0, 0, 0, 0.2)), to(rgba(0, 0, 0, 0.85))), #ffffff;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 15%, rgba(0, 0, 0, 0.85) 100%), #ffffff;
+}
+
+.settings .row.row-minestyle .settings__theme-item.settings__audio-range input[type="range"]::-webkit-slider-thumb {
+  margin-top: -3.5px;
+  width: 12px;
+  height: 12px;
+}
+
+.settings .row.row-minestyle .settings__theme-item.settings__audio-range input[type="range"]:focus::-webkit-slider-thumb, .settings .row.row-minestyle .settings__theme-item.settings__audio-range input[type="range"]:focus-visible::-webkit-range-thumb, .settings .row.row-minestyle .settings__theme-item.settings__audio-range input[type="range"]:hover::-webkit-range-thumb {
+  margin-top: -5px;
+  width: 15px;
+  height: 15px;
+}
+
+.settings .row.row-minestyle .settings__theme-item[for="eclipse"] {
+  background: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(rgba(0, 0, 0, 0.75)));
+  background: linear-gradient(180deg, #f4f4f4 0%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+.settings .row.row-bg .settings__theme-item[for="White-BG"] {
+  background-color: white;
+  -webkit-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.5), inset 0px 0px 25px rgba(0, 0, 0, 0.75);
+          box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.5), inset 0px 0px 25px rgba(0, 0, 0, 0.75);
+}
+
+.settings .row.row-bg .settings__theme-item[for="Dark-BG"] {
+  background-color: black;
+  -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.75), inset 0px 0px 20px rgba(255, 255, 255, 0.75);
+          box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.75), inset 0px 0px 20px rgba(255, 255, 255, 0.75);
+}
+
+.settings .row.row-bg input[type="radio"]:not(:checked) + .settings__theme-item[for="White-BG"] {
+  -webkit-box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.5), inset 0px 0px 25px rgba(0, 0, 0, 0.75);
+          box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.5), inset 0px 0px 25px rgba(0, 0, 0, 0.75);
+}
+
+.settings .row.row-bg input[type="radio"]:not(:checked) + .settings__theme-item[for="Dark-BG"] {
+  -webkit-box-shadow: 0px 0px 0px 5px rgba(0, 0, 0, 0.5), inset 0px 0px 20px rgba(255, 255, 255, 0.75);
+          box-shadow: 0px 0px 0px 5px rgba(0, 0, 0, 0.5), inset 0px 0px 20px rgba(255, 255, 255, 0.75);
+}
+
+.settings .row.row-bg input[type="radio"]:hover + .settings__theme-item[for="White-BG"] {
+  -webkit-box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.5), inset 0px 0px 30px rgba(0, 0, 0, 0.75);
+          box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.5), inset 0px 0px 30px rgba(0, 0, 0, 0.75);
+}
+
+.settings .row.row-bg input[type="radio"]:hover + .settings__theme-item[for="Dark-BG"] {
+  -webkit-box-shadow: 0px 0px 0px 5px rgba(0, 0, 0, 0.5), inset 0px 0px 25px rgba(255, 255, 255, 0.75);
+          box-shadow: 0px 0px 0px 5px rgba(0, 0, 0, 0.5), inset 0px 0px 25px rgba(255, 255, 255, 0.75);
+}
+
+.settings .row.row-themes .settings__theme-item span {
+  position: absolute;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  color: #ffffff;
+  width: 5em;
+  opacity: 0;
   top: 50%;
-  margin: 0 5px;
-  right: 0;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  background: #ffffff;
-  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  border-radius: 25px;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  -webkit-filter: blur(5px);
+          filter: blur(5px);
+  -webkit-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+  z-index: -1;
 }
 
-.settings__theme-item input[type="checkbox"] input[type="checkbox"]:checked::before {
-  background: rgba(255, 255, 255, 0.7);
-}
-
-.settings__theme-item input[type="checkbox"] input[type="checkbox"]:checked::after {
+.settings .row.row-themes .settings__theme-conteiner:first-child span {
+  text-align: left;
   left: 0;
 }
 
-.sound svg:nth-child(2) {
+.settings .row.row-themes .settings__theme-conteiner:first-child:hover span {
+  left: 100%;
+  opacity: 1;
+  -webkit-filter: blur(0);
+          filter: blur(0);
+  -webkit-transform: translate(18px, -50%);
+          transform: translate(18px, -50%);
+}
+
+.settings .row.row-themes .settings__theme-conteiner:last-child span {
+  text-align: right;
+  right: 100%;
+}
+
+.settings .row.row-themes .settings__theme-conteiner:last-child:hover span {
+  opacity: 1;
+  -webkit-filter: blur(0);
+          filter: blur(0);
+  -webkit-transform: translate(-18px, -50%);
+          transform: translate(-18px, -50%);
+}
+
+.settings .row:not(:nth-child(2)) input[type="radio"]:not(:checked) + .settings__theme-item,
+.settings .row:not(:nth-child(2)) .settings__theme-item[for="eclipse"] {
+  -webkit-box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.5), inset 0px 0px 0px 0px rgba(255, 255, 255, 0);
+          box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.5), inset 0px 0px 0px 0px rgba(255, 255, 255, 0);
+}
+
+.settings .row:not(:nth-child(2)) input[type="radio"]:not(:checked):hover + .settings__theme-item,
+.settings .row:not(:nth-child(2)) .settings__theme-item[for="eclipse"]:hover {
+  -webkit-box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.5), inset 0px 0px 10px 4px rgba(255, 255, 255, 0.5);
+          box-shadow: 0px 0px 0px 5px rgba(255, 255, 255, 0.5), inset 0px 0px 10px 4px rgba(255, 255, 255, 0.5);
+}
+
+.settings .row:not(:nth-child(2)) input[type="radio"]:checked:hover + .settings__theme-item {
+  -webkit-box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0), inset 0px 0px 10px 4px rgba(255, 255, 255, 0.5);
+          box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0), inset 0px 0px 10px 4px rgba(255, 255, 255, 0.5);
+}
+
+.settings .sound svg:nth-child(2) {
   top: 8%;
 }
 
@@ -1070,4 +1237,189 @@ body {
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
   }
+}
+
+@-webkit-keyframes border-transform {
+  0%,
+  100% {
+    border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+  }
+  14% {
+    border-radius: 40% 60% 54% 46% / 49% 60% 40% 51%;
+  }
+  28% {
+    border-radius: 54% 46% 38% 62% / 49% 70% 30% 51%;
+  }
+  42% {
+    border-radius: 61% 39% 55% 45% / 61% 38% 62% 39%;
+  }
+  56% {
+    border-radius: 61% 39% 67% 33% / 70% 50% 50% 30%;
+  }
+  70% {
+    border-radius: 50% 50% 34% 66% / 56% 68% 32% 44%;
+  }
+  84% {
+    border-radius: 46% 54% 50% 50% / 35% 61% 39% 65%;
+  }
+}
+
+@keyframes border-transform {
+  0%,
+  100% {
+    border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+  }
+  14% {
+    border-radius: 40% 60% 54% 46% / 49% 60% 40% 51%;
+  }
+  28% {
+    border-radius: 54% 46% 38% 62% / 49% 70% 30% 51%;
+  }
+  42% {
+    border-radius: 61% 39% 55% 45% / 61% 38% 62% 39%;
+  }
+  56% {
+    border-radius: 61% 39% 67% 33% / 70% 50% 50% 30%;
+  }
+  70% {
+    border-radius: 50% 50% 34% 66% / 56% 68% 32% 44%;
+  }
+  84% {
+    border-radius: 46% 54% 50% 50% / 35% 61% 39% 65%;
+  }
+}
+
+@-webkit-keyframes item-rotate {
+  0%,
+  50%,
+  100% {
+    -webkit-transform: translate(-50%, -50%) rotate(0deg);
+            transform: translate(-50%, -50%) rotate(0deg);
+  }
+  25% {
+    -webkit-transform: translate(-50%, -50%) rotate(30deg);
+            transform: translate(-50%, -50%) rotate(30deg);
+  }
+  75% {
+    -webkit-transform: translate(-50%, -50%) rotate(-30deg);
+            transform: translate(-50%, -50%) rotate(-30deg);
+  }
+}
+
+@keyframes item-rotate {
+  0%,
+  50%,
+  100% {
+    -webkit-transform: translate(-50%, -50%) rotate(0deg);
+            transform: translate(-50%, -50%) rotate(0deg);
+  }
+  25% {
+    -webkit-transform: translate(-50%, -50%) rotate(30deg);
+            transform: translate(-50%, -50%) rotate(30deg);
+  }
+  75% {
+    -webkit-transform: translate(-50%, -50%) rotate(-30deg);
+            transform: translate(-50%, -50%) rotate(-30deg);
+  }
+}
+
+.settings__theme-item[for="Dark"] .item {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-radius: 50%;
+  font-size: 5px;
+  -webkit-box-shadow: inset 1em -0.45em 0px 0.45em #ffffff;
+          box-shadow: inset 1em -0.45em 0px 0.45em #ffffff;
+  -webkit-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+}
+
+.settings__theme-item[for="Dark"]:hover .item {
+  font-size: 6px;
+  -webkit-box-shadow: inset 1em 0.45em 0px 0.45em #ffffff;
+          box-shadow: inset 1em 0.45em 0px 0.45em #ffffff;
+}
+
+input[type="checkbox"] + .settings__theme-item.check-theme {
+  --animation-duration: 0.2s;
+  position: relative;
+  display: block;
+  cursor: pointer;
+  opacity: 1;
+  width: 65px;
+  height: 33px;
+  border-radius: 45px;
+  background: rgba(255, 255, 255, 0.5);
+  -webkit-transition: all var(--animation-duration) linear;
+  transition: all var(--animation-duration) linear;
+}
+
+input[type="checkbox"] + .settings__theme-item.check-theme::after {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  pointer-events: none;
+  top: 50%;
+  left: calc(50% - 15px);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background: #ffffff;
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  -webkit-transition: all var(--animation-duration) linear;
+  transition: all var(--animation-duration) linear;
+}
+
+input[type="checkbox"].active + .settings__theme-item.check-theme::after {
+  left: calc(50% + 15px);
+}
+
+/* BG-white-transparent   BG-dark-transparent   
+
+BG-white   BG-dark */
+body.BG-white input[type="checkbox"] + .settings__theme-item.check-theme {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+body.BG-white input[type="checkbox"] + .settings__theme-item.check-theme::after {
+  background: #ffffff;
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+body.BG-white input[type="checkbox"].active + .settings__theme-item.check-theme {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+body.BG-white input[type="checkbox"].active + .settings__theme-item.check-theme::after {
+  background: #ffffff;
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+body.BG-dark input[type="checkbox"] + .settings__theme-item.check-theme {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+body.BG-dark input[type="checkbox"] + .settings__theme-item.check-theme::after {
+  background: #000000;
+  -webkit-box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+          box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+}
+
+body.BG-dark input[type="checkbox"].active + .settings__theme-item.check-theme {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+body.BG-dark input[type="checkbox"].active + .settings__theme-item.check-theme::after {
+  background: #000000;
+  -webkit-box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+          box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
 }
