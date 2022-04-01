@@ -3,19 +3,22 @@
 
 <head>
 	<meta charset="UTF-8">
-	<link rel="shortcut icon" href="img/Son-icon.svg" type="image/svg"><!-- Icon -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="shortcut icon" href="img/Son-icon.svg" type="image/svg"><!-- Icon -->
 	<title>Solar thunder</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
 <body>
 	<div class="conteiner eclipse">
-		<main>
+		<main class="first-page">
 
 			<header class="info">
 				<div class="info__city">
@@ -24,27 +27,65 @@
 						<path
 							d="M9.04508 25.4868C1.5866 14.8221 0.188581 13.7182 0.248776 9.84016C0.33123 4.5281 4.90754 0.28856 10.4703 0.370837C16.0331 0.453113 20.4757 4.82605 20.3932 10.1381C20.333 14.0161 18.9014 15.0782 11.1153 25.5174C10.6044 26.2001 9.53452 26.1842 9.04508 25.4868ZM10.2588 13.9968C12.5766 14.031 14.4834 12.2646 14.5178 10.0512C14.5521 7.83784 12.701 6.01579 10.3832 5.98151C8.06539 5.94723 6.1586 7.7137 6.12424 9.92706C6.08989 12.1404 7.94098 13.9625 10.2588 13.9968Z" />
 					</svg>
+					<!-- <svg class="info__city-marker" tabindex="1">
+						<use xlink:href="img/icons.svg#map-marker"> </use>
+					</svg> -->
 					<!-- <h1 class="info__city-name">Ivano-Frankivsk</h1> -->
 					<div class="info__city-form">
 						<!--It is FORM-->
 						<input class="info__city-name" placeholder="Ivano-Frankivsk" name="city" list="city" type="text"
 							autocomplete="off" tabindex="1">
 						<ul class="tips">
-							<li class="tips-item">Ivano-Frankivsk</li>
-							<li class="tips-item">Lviv</li>
-							<li class="tips-item">Ivano-Frankivsk, Ukraine</li>
-							<li class="tips-item">Ivano-Frankivsk, Ukraine</li>
-							<li class="tips-item">Ivano-Frankivsk, Ukraine</li>
-							<li class="tips-item">Ivano-Frankivsk, Ukraine</li>
+							<li class="tips__item">Ivano-Frankivsk</li>
+							<li class="tips__item">Lviv</li>
+							<li class="tips__item">Ivano-Frankivsk, Ukraine</li>
+							<li class="tips__item">Ivano-Frankivsk, Ukraine</li>
+							<li class="tips__item">Ivano-Frankivsk, Ukraine</li>
+							<li class="tips__item">Ivano-Frankivsk, Ukraine</li>
 						</ul>
+						<div class="save-city">
+							<div class="save-city__item" tabindex="1">
+								<div class="save-city__item-bg"></div>
+								<div class="save-city__item-title">Ivano-Frankivsk</div>
+								<div class="save-city__item-subtitle">Sunday, Aug 30th</div>
+
+								<span class="save-city__item-conteiner">
+									<span class="save-city__item-value">36°</span>
+									<div class="save-city__item-icon"></div>
+								</span>
+							</div>
+							<div class="save-city__item" tabindex="1">
+								<div class="save-city__item-bg"></div>
+								<div class="save-city__item-title">Ivano-Frankivsk</div>
+								<div class="save-city__item-subtitle">Sunday, Aug 30th</div>
+
+								<span class="save-city__item-conteiner">
+									<span class="save-city__item-value">36°</span>
+									<div class="save-city__item-icon"></div>
+								</span>
+							</div>
+							<div class="save-city__item" tabindex="1">
+								<div class="save-city__item-bg"></div>
+								<div class="save-city__item-title">Ivano-Frankivsk</div>
+								<div class="save-city__item-subtitle">Sunday, Aug 30th</div>
+
+								<span class="save-city__item-conteiner">
+									<span class="save-city__item-value">36°</span>
+									<div class="save-city__item-icon"></div>
+								</span>
+							</div>
+							<div class="save-city__item" tabindex="1">
+								<div class="save-city__item-bg"></div>
+								<div class="save-city__item-title">Ivano-Frankivsk</div>
+								<div class="save-city__item-subtitle">Sunday, Aug 30th</div>
+
+								<span class="save-city__item-conteiner">
+									<span class="save-city__item-value">36°</span>
+									<div class="save-city__item-icon"></div>
+								</span>
+							</div>
+						</div>
 					</div>
-					<!-- <datalist class="tips" id="city">
-				<option class="tips-item">Апостолове</option>
-				<option class="tips-item">Верхівцеве</option>
-				<option class="tips-item">Верхньодніпровськ</option>
-				<option class="tips-item">Вільногірськ</option>
-				<option class="tips-item">Дніпро</option>
-			</datalist> -->
 				</div>
 				<div class="info__date">
 					<span>Sunday</span>
@@ -92,16 +133,84 @@
 				</div>
 			</footer>
 		</main>
-		<section class="forecast">
+		<!-- <section class="forecast">
 			<div class="forecast__nav">
 				<div class="marker"></div>
 				<div class="exit"></div>
 			</div>
-			<div class="forecast__info"></div>
+			<div class="forecast__info">
+				<div class="forecast__info-today"></div>
+				<div class="forecast__info-list">
+					<div class="forecast__info-item">
+						<div class="title">
+							<span class="time">00:00</span>
+							<p class="temperature"><span>36</span><span>°</span></p>
+							<div class="weather">
+								<div class="icon"></div>
+								<span class="name">Partly Cloudy</span>
+							</div>
+							<div class="item wind">
+								<div class="item__icon">
+									<div class="arrow"></div>
+									<span>°</span>
+								</div>
+								<div class="item__conteiner">
+									<span class="item__title">Wind</span>
+									<span class="item__value"><span>5-10</span><span>m/s</span></span>
+								</div>
+							</div>
+						</div>
+						<div class="content">
+							<div class="item wind">
+								<div class="item__icon">
+									<div class="arrow"></div>
+									<span>°</span>
+								</div>
+								<div class="item__conteiner">
+									<span class="item__title">Wind</span>
+									<span class="item__value"><span>5-10</span><span>m/s</span></span>
+								</div>
+							</div>
+							<div class="item visibility">
+								<div class="item__icon">
+									<div class="cloud"></div>
+									<div class="blur"></div>
+								</div>
+								<div class="item__conteiner">
+									<span class="item__title">Visibility</span>
+									<span class="item__value"><span>36</span><span>%</span></span>
+								</div>
+							</div>
+							<div class="item humidity">
+								<div class="item__icon"></div>
+								<div class="item__conteiner">
+									<span class="item__title">Humidity</span>
+									<span class="item__value"><span>40</span><span>%</span></span>
+								</div>
+							</div>
+							<div class="item cloudiness">
+								<div class="item__icon"></div>
+								<div class="item__conteiner">
+									<span class="item__title">Сloudiness</span>
+									<span class="item__value"><span>60</span><span>%</span></span>
+								</div>
+							</div>
+							<div class="item atmos">
+								<div class="item__icon"></div>
+								<div class="item__conteiner">
+									<span class="item__title">Atmos pressure</span>
+									<span class="item__value"><span>1024</span><span>гПа</span></span>
+								</div>
+							</div>
+			
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="forecast__days"></div>
-		</section>
+		</section> -->
 
-		<div class="settings">
+		<!-- <div class="settings">
 			<button class="settings__open">
 				<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path
@@ -116,7 +225,7 @@
 							<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path
 									d="M14.9322 4.58767L8.75394 11.9998H1.66662C0.745814 11.9998 0 12.8948 0 13.9997V25.9992C0 27.1033 0.745814 27.9991 1.66662 27.9991H8.75394L14.9322 35.4112C15.976 36.6637 17.7773 35.7837 17.7773 33.9971V6.00177C17.7773 4.21352 15.9746 3.3369 14.9322 4.58767ZM31.1346 0.331204C30.3589 -0.279601 29.3166 -0.0221127 28.8076 0.910343C28.2979 1.84113 28.5145 3.09191 29.2902 3.70271C33.8922 7.32671 36.6386 13.4189 36.6386 20.0003C36.6386 26.5816 33.8922 32.6739 29.2902 36.2978C28.5145 36.9078 28.2979 38.1594 28.8076 39.0894C29.2965 39.9818 30.3305 40.3027 31.1346 39.6685C36.6845 35.2971 39.999 27.9432 39.999 19.9994C39.999 12.0557 36.6845 4.70267 31.1346 0.331204ZM33.3325 19.9994C33.3325 14.7055 31.1061 9.83826 27.3764 6.98006C26.5993 6.38509 25.5688 6.66174 25.0764 7.6017C24.5841 8.54165 24.8139 9.78576 25.591 10.3816C28.3513 12.4973 29.9992 16.0921 29.9992 19.9994C29.9992 23.9068 28.3513 27.5016 25.591 29.6173C24.8139 30.2123 24.5841 31.4564 25.0764 32.3972C25.5285 33.2605 26.5431 33.6588 27.3764 33.0188C31.1061 30.1606 33.3325 25.2942 33.3325 19.9994ZM23.4876 13.5939C22.6834 13.0664 21.6689 13.4139 21.2231 14.3814C20.7793 15.3488 21.0731 16.5646 21.8793 17.0987C22.7758 17.6896 23.3327 18.802 23.3327 19.9994C23.3327 21.1977 22.7758 22.3093 21.88 22.9001C21.0738 23.4343 20.78 24.6501 21.2238 25.6175C21.6703 26.5891 22.6855 26.9341 23.4883 26.405C25.4486 25.1092 26.6667 22.6552 26.6667 19.9986C26.6667 17.3421 25.4486 14.8889 23.4876 13.5939Z" />
-								<!-- fill="white" -->
+					
 							</svg>
 							<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path
@@ -223,7 +332,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 
 	<div class="background">

@@ -1,7 +1,27 @@
 :root {
-	--animation-duration: 0.5s;
-	--hover-color: #fff;
+	//Colors
+	--white: #fff;
 
+	//Animation
+	--animation-duration-fast: 0.2s;
+	--animation-duration-slowly: 0.5s;
+
+	//Padding
+	--horisontal-padding: 30px;
+	--vertical-padding: 50px;
+
+	//Font-size
+	--Search: 45px;
+	--Save-city: 4px;
+	--First-forecast: 12px;
+
+	//Costants
+	--border-radius-strong: 15px;
+	--border-radius-medium: 10px;
+	--title-padding-top: 150px;
+}
+
+:root {
 	//Focus and select text
 	--focus-color-opacity: 0.5;
 	--focus-color1: 250, 255, 0;
@@ -9,7 +29,6 @@
 	--focus-color3: 250, 255, 0;
 	--focus-color4: 250, 255, 0;
 }
-
 // hsla(360, 79%, 44%, 1)
 
 *,
@@ -18,8 +37,10 @@
 	font-family: "Roboto", sans-serif;
 	box-sizing: border-box;
 	margin: 0;
+	padding: 0;
 	outline: none;
-
+	-webkit-tap-highlight-color: transparent;
+	scroll-behavior: smooth;
 	// Це для кнопки яка зменшує лаги вимикаючи анімації хосаби для фону. для малих ти знову введеш !important щоб вони і на далі працювали
 	// 	animation-play-state: running !important;
 	// animation-play-state: paused !important;
@@ -39,10 +60,11 @@ html {
 
 body {
 	// max-height: 100vh;
-	// box-shadow: inset 0px 0px 70vmin 50vmin var(--hover-color);
 	position: relative;
-	width: 414px;
-	height: 896px;
+	// width: 414px;
+	// height: 896px;
+	width: 100%;
+	height: 100vh;
 	overflow: hidden;
 }
 
@@ -59,27 +81,15 @@ body {
 		0 0 20px rgba(var(--focus-color3), var(--opacity)), 0 0 30px rgba(var(--focus-color4), var(--opacity));
 }
 
-// *::selection {
-// 	// background: transparent;
-// 	// 	// text-shadow: 1px 1px 0 var(--accent-color), 2px 2px 0 var(--accent-color);
-// 	// 	// text-shadow: 0px 0px 7px #ffffff, 0px 0px 5px #ffffff, 0px 0px 10px #ffffff, 0px 0px 15px #ffffff,
-// 	// 	// 0px 0px 30px #ffffff, 0px 0px 50px #ffffff, 0px 0px 100px #ffffff;
-
-// 	// text-shadow: 0px -14px 8px rgba(0, 0, 0, 0.2), 0px -14px 7px rgba(0, 0, 0, 0.3), 0px -12px 6px rgba(0, 0, 0, 0.4),
-// 	// 	0px -10px 5px rgba(0, 0, 0, 0.5), 0px -8px 4px rgba(0, 0, 0, 0.6), 0px -6px 3px rgba(0, 0, 0, 0.7),
-// 	// 	0px -4px 2px rgba(0, 0, 0, 0.8), 0px -2px 1px rgba(0, 0, 0, 0.9), 0px -2px 1px rgba(0, 0, 0, 0.8),
-// 	// 	0px -18px 9px rgba(0, 0, 0, 0.1);
-// }
-
 // @keyframes shadow-inset-center {
 // 	0% {
-// 		box-shadow: inset 0px 0px 70vmin 50vmin var(--hover-color);
+// 		box-shadow: inset 0px 0px 70vmin 50vmin var(--white);
 // 	}
 // 	20% {
-// 		box-shadow: inset 0px 0px 70vmin 50vmin var(--hover-color);
+// 		box-shadow: inset 0px 0px 70vmin 50vmin var(--white);
 // 	}
 // 	100% {
-// 		box-shadow: inset 0px 0px 70vmin -50vmin var(--hover-color);
+// 		box-shadow: inset 0px 0px 70vmin -50vmin var(--white);
 // 	}
 // }
 
@@ -90,18 +100,34 @@ body {
 	right: 0;
 	bottom: 0;
 	background: linear-gradient(180deg, #2d84da 0%, #56ccf2 31.04%, #b2fefa 63.33%, #6cdc38 82.6%, #149202 100%);
+	background: url(../img/BG.jpg) center no-repeat,
+		linear-gradient(180deg, #2d84da 0%, #56ccf2 31.04%, #b2fefa 63.33%, #6cdc38 82.6%, #149202 100%);
+	background-size: contain;
 	z-index: -1;
 }
 
 .conteiner {
 	height: 100%;
+	overflow-y: scroll;
+	main {
+		position: relative;
+		height: 100%;
+	}
+	section {
+		height: 100%;
+	}
 }
+// .first-page,
+// .forecast{
+// width: 100vw;
+// height: 100vh;
+// }
 
-::-webkit-scrollbar {
+*::-webkit-scrollbar {
 	width: 0px;
 }
 
-::-webkit-scrollbar-corner {
+*::-webkit-scrollbar-corner {
 	background: transparent;
 }
 
